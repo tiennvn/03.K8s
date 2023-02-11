@@ -1,0 +1,1 @@
+docker run -d --restart=unless-stopped --privileged -p 9080:80 -p 9443:443 rancher/rancher:latest
