@@ -1,0 +1,46 @@
+# apiVersion: v1
+# kind: Pod
+# metadata:
+#   name: tools
+#   labels:
+#     app: tools
+# spec:
+#   containers:
+#   - name: s1
+#     image: webempty:latest
+#     resources:
+#     limits:
+#       memory: "150Mi"
+#       cpu: "100m"
+#     ports:
+#       - containerPort: 80
+  
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "webapp"
+  namespace: default
+  labels:
+    app: "webapp"
+spec:
+  containers:
+  - name: webapp
+    image: tienn/webempty:latest
+    resources:
+      limits:
+        cpu: 200m
+        memory: 500Mi
+      requests:
+        cpu: 100m
+        memory: 200Mi
+    ports:
+    - containerPort:  80
+      name:  http
+    volumeMounts:
+    - name: localtime
+      mountPath: /etc/localtime
+  volumes:
+    - name: localtime
+      hostPath:
+        path: /usr/share/zoneinfo/Asia/Shanghai
+  restartPolicy: Always
